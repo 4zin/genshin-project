@@ -8,7 +8,22 @@ export class CharacterService {
   constructor(private prisma: PrismaService) { }
 
   async getAllCharacter() {
-    return await this.prisma.character.findMany()
+    return await this.prisma.character.findMany({
+      select: {
+        name: true,
+        title: true,
+        element: {
+          select: {
+            name: true
+          }
+        },
+        nation: {
+          select: {
+            name: true
+          }
+        }
+      }
+    })
   }
 
   async getCharacterById(id: string) {
@@ -17,7 +32,13 @@ export class CharacterService {
       select: {
         name: true,
         title: true,
-        element: true
+        element: true,
+        nation: {
+          select: {
+            name: true,
+            element: true
+          }
+        }
       }
     })
   }
