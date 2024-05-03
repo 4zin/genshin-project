@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 import { CharacterService } from './character.service';
 import { CharacterDto } from './dto/character.dto';
 
@@ -12,8 +12,13 @@ export class CharacterController {
   }
 
   @Get('/:id')
-  getCharacterById(@Param('id') id: string) {
-    return this.characterService.getCharacterById(id)
+  async getCharacterById(@Param('id') id: string) {
+
+    const characterFound = await this.characterService.getCharacterById(id)
+
+    if (!characterFound) throw new HttpException('Character not found', HttpStatus.NOT_FOUND)
+
+    return characterFound
   }
 
   @Post()
