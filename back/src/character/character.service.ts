@@ -1,25 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CharacterDto } from './dto/character.dto';
+import { Character } from '@prisma/client';
 
 @Injectable()
 export class CharacterService {
 
   constructor(private prisma: PrismaService) { }
 
-  async getAllCharacter() {
-    return await this.prisma.character.findMany({
+  getAllCharacter() {
+    return this.prisma.character.findMany({
       select: {
+        id: true,
         name: true,
         title: true,
-        element: {
-          select: {
-            name: true
-          }
-        },
+        element: true,
         nation: {
           select: {
-            name: true
+            id: true,
+            name: true,
+            element: true
           }
         }
       }
@@ -43,7 +43,7 @@ export class CharacterService {
     })
   }
 
-  async createCharacter(character: CharacterDto) {
+  async createCharacter(character: CharacterDto): Promise<Character> {
     return await this.prisma.character.create({ data: character })
   }
 

@@ -17,6 +17,16 @@ export class NationService {
     })
   }
 
+  async getNationById(id: string) {
+    return await this.prisma.nation.findUnique({
+      where: { id },
+      select: {
+        name: true,
+        element: true
+      }
+    })
+  }
+
   async createNation(nation: NationDto) {
     return await this.prisma.nation.create({ data: nation })
   }

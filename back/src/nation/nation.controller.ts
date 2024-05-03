@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 import { NationService } from './nation.service';
 import { NationDto } from './dto/nation.dto';
 
@@ -9,6 +9,16 @@ export class NationController {
   @Get()
   getAllNations() {
     return this.nationService.getAllNations()
+  }
+
+  @Get(':id')
+  async getNationById(@Param('id') id: string) {
+    const nationFound = await this.nationService.getNationById(id)
+
+    if (!nationFound) throw new HttpException(`Nation with id ${id} not found`, HttpStatus.NOT_FOUND)
+
+    return nationFound
+
   }
 
   @Post()

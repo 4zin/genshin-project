@@ -11,6 +11,12 @@ export class ElementService {
     return await this.prisma.elements.findMany()
   }
 
+  async getElementById(id: string) {
+    return await this.prisma.elements.findUnique({
+      where: { id },
+    })
+  }
+
   async createElements(element: ElementDto) {
     return await this.prisma.elements.create({ data: element })
   }
