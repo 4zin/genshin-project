@@ -3,4 +3,5 @@ export class CharacterDto {
   name: string;
   title: string;
   elementId: string;
+  nationId: string;
 }
