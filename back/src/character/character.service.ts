@@ -14,7 +14,7 @@ export class CharacterService {
         id: true,
         name: true,
         title: true,
-        element: true,
+        vision: true,
         nation: {
           select: {
             id: true,
@@ -32,7 +32,7 @@ export class CharacterService {
       select: {
         name: true,
         title: true,
-        element: true,
+        vision: true,
         nation: {
           select: {
             name: true,

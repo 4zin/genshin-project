@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CharacterService } from './character.service';
 import { CharacterDto } from './dto/character.dto';
 
@@ -22,6 +22,7 @@ export class CharacterController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   createCharacter(@Body() character: CharacterDto) {
     return this.characterService.createCharacter(character)
   }
