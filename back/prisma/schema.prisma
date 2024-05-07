@@ -11,8 +11,8 @@ model Character {
   id        String   @id @default(uuid())
   name      String
   title     String
-  element   Elements @relation(fields: [elementId], references: [id])
-  elementId String   @unique
+  vision   Elements @relation(fields: [visionId], references: [id])
+  visionId String   @unique
   nation    Nation   @relation(fields: [nationId], references: [id])
   nationId  String   @unique
 }
