@@ -8,13 +8,14 @@ datasource db {
 }
 
 model Character {
-  id        String   @id @default(uuid())
-  name      String
-  title     String
+  id       String   @id @default(uuid())
+  name     String
+  title    String
+  weapon   Weapon
   vision   Elements @relation(fields: [visionId], references: [id])
   visionId String   @unique
-  nation    Nation   @relation(fields: [nationId], references: [id])
-  nationId  String   @unique
+  nation   Nation   @relation(fields: [nationId], references: [id])
+  nationId String
 }
 
 model Nation {
@@ -22,7 +23,7 @@ model Nation {
   name      String
   element   Elements   @relation(fields: [elementId], references: [id])
   elementId String     @unique
-  Character Character?
+  Character Character[]
 }
 
 model Elements {
@@ -30,4 +31,12 @@ model Elements {
   name      String
   Character Character?
   Nation    Nation?
+}
+
+enum Weapon {
+  Sword
+  Claymore
+  Bow
+  Catalyst
+  Polearm
 }
