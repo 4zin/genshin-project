@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator"
+import { IsEnum, IsNotEmpty, IsString } from "class-validator"
+import { Weapon } from '@prisma/client'
 
 export class CharacterDto {
   id: string;
@@ -10,6 +11,10 @@ export class CharacterDto {
   @IsString()
   @IsNotEmpty()
   title: string;
+
+  @IsEnum(Weapon)
+  @IsNotEmpty()
+  weapon: Weapon;
 
   @IsString()
   @IsNotEmpty()

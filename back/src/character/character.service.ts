@@ -43,8 +43,9 @@ export class CharacterService {
     })
   }
 
-  async createCharacter(character: CharacterDto): Promise<Character> {
-    return await this.prisma.character.create({ data: character })
+  async createCharacter(character: CharacterDto): Promise<Character> {   
+    return await this.prisma.character.create({
+      data: character,
+    });
   }
-
 }
