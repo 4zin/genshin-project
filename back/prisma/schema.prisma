@@ -18,11 +18,18 @@ model Character {
   nationId String
 }
 
+model Weapons {
+  id     String @id @default(uuid())
+  name   String
+  rarity Rarity
+  type   Weapon
+}
+
 model Nation {
-  id        String     @id @default(uuid())
+  id        String      @id @default(uuid())
   name      String
-  element   Elements   @relation(fields: [elementId], references: [id])
-  elementId String     @unique
+  element   Elements    @relation(fields: [elementId], references: [id])
+  elementId String      @unique
   Character Character[]
 }
 
@@ -39,4 +46,10 @@ enum Weapon {
   Bow
   Catalyst
   Polearm
+}
+
+enum Rarity {
+  FiveStar
+  FourStar
+  ThreeStar
 }
