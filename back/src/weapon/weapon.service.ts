@@ -8,12 +8,12 @@ export class WeaponService {
 
     constructor(private prisma: PrismaService){}
 
-    getAllWeapons() {
-        return this.prisma.weapons.findMany()
+    async getAllWeapons() {
+        return await this.prisma.weapons.findMany()
     }
 
-    createWeapon(weapons: WeaponsDto): Promise<Weapons> {
-        return this.prisma.weapons.create({
+    async createWeapon(weapons: WeaponsDto): Promise<Weapons> {
+        return await this.prisma.weapons.create({
             data: weapons
         })
     }
