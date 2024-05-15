@@ -1,5 +1,6 @@
 import { IsEnum, IsNotEmpty, IsString } from "class-validator"
 import { Weapon } from '@prisma/client'
+import { FactionDto } from "src/factions/dto/factions.dto";
 
 export class CharacterDto {
   id: string;
@@ -15,6 +16,8 @@ export class CharacterDto {
   @IsEnum(Weapon)
   @IsNotEmpty()
   weapon: Weapon;
+
+  factions: FactionDto[];
 
   @IsString()
   @IsNotEmpty()

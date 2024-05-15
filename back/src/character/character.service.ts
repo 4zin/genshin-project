@@ -8,8 +8,9 @@ export class CharacterService {
 
   constructor(private prisma: PrismaService) { }
 
-  getAllCharacter() {
-    return this.prisma.character.findMany({
+  async getAllCharacter() {
+    
+    const characters = await this.prisma.character.findMany({
       select: {
         id: true,
         name: true,
@@ -21,9 +22,19 @@ export class CharacterService {
             name: true,
             element: true
           }
+        },
+        factions: {
+          select: {
+            name: true
+          }
         }
       }
     })
+
+    return characters.map((character) => ({
+      ...character,
+      factions: character.factions.map((faction) => faction.name)
+    }))
   }
 
   async getCharacterById(id: string) {
@@ -44,8 +55,32 @@ export class CharacterService {
   }
 
   async createCharacter(character: CharacterDto): Promise<Character> {   
+
+    const factions = await Promise.all(character.factions.map(async (faction) => {
+      const existingFaction = await this.prisma.factions.findUnique({
+            where: {name: faction.name}
+        });
+
+        if (existingFaction) {
+            return {
+                where: { id: existingFaction.id },
+                create: { name: faction.name },
+            };
+        } else {
+            return {
+                where: { name: faction.name },
+                create: { name: faction.name },
+            };
+        }
+  }));
+
     return await this.prisma.character.create({
-      data: character,
+      data: {
+        ...character,
+        factions: {
+          connectOrCreate: factions
+        }
+      }
     });
   }
 }
