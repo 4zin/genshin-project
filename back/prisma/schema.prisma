@@ -8,14 +8,21 @@ datasource db {
 }
 
 model Character {
-  id       String   @id @default(uuid())
+  id       String     @id @default(uuid())
   name     String
   title    String
   weapon   Weapon
-  vision   Elements @relation(fields: [visionId], references: [id])
-  visionId String   @unique
-  nation   Nation   @relation(fields: [nationId], references: [id])
+  factions Factions[]
+  vision   Elements   @relation(fields: [visionId], references: [id])
+  visionId String
+  nation   Nation     @relation(fields: [nationId], references: [id])
   nationId String
+}
+
+model Factions {
+  id        String      @id @default(uuid())
+  name      String      @unique
+  character Character[]
 }
 
 model Weapons {
@@ -34,9 +41,9 @@ model Nation {
 }
 
 model Elements {
-  id        String     @id @default(uuid())
+  id        String      @id @default(uuid())
   name      String
-  Character Character?
+  Character Character[]
   Nation    Nation?
 }
 
