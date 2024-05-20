@@ -22,6 +22,8 @@ model Character {
 model Factions {
   id        String      @id @default(uuid())
   name      String      @unique
+  nation    Nation      @relation(fields: [nationId], references: [id])
+  nationId  String
   character Character[]
 }
 
@@ -38,6 +40,7 @@ model Nation {
   element   Elements    @relation(fields: [elementId], references: [id])
   elementId String      @unique
   Character Character[]
+  Factions  Factions[]
 }
 
 model Elements {

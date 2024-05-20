@@ -54,25 +54,34 @@ export class CharacterService {
     })
   }
 
-  async createCharacter(character: CharacterDto): Promise<Character> {   
+  async createCharacter(character: CharacterDto): Promise<Character> {
+    
+    const nation = await this.prisma.nation.findUnique({
+      where: {id: character.nationId}
+    })
+
+    if (!nation) throw new Error(`Nation with id ${character.nationId} not found`)
 
     const factions = await Promise.all(character.factions.map(async (faction) => {
       const existingFaction = await this.prisma.factions.findUnique({
-            where: {name: faction.name}
+            where: {
+              name: faction.name,
+              nationId: nation.id
+            }
         });
 
         if (existingFaction) {
             return {
                 where: { id: existingFaction.id },
-                create: { name: faction.name },
+                create: { name: faction.name, nationId: nation.id },
             };
         } else {
             return {
-                where: { name: faction.name },
-                create: { name: faction.name },
+                where: { name: faction.name, nationId: nation.id },
+                create: { name: faction.name, nationId: nation.id },
             };
         }
-  }));
+    }));
 
     return await this.prisma.character.create({
       data: {
