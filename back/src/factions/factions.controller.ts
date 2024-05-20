@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FactionsService } from './factions.service';
+import { FactionDto } from './dto/factions.dto';
 
 @Controller('factions')
 export class FactionsController {
@@ -9,4 +10,10 @@ export class FactionsController {
   getAllFactions() {
     return this.factionsService.getAllFactions()
   }
+
+  @Post()
+  createFaction(@Body() faction: FactionDto) {
+    return this.factionsService.createFaction(faction)
+  }
+
 }
