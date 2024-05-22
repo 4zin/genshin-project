@@ -17,6 +17,14 @@ model Character {
   visionId String
   nation   Nation     @relation(fields: [nationId], references: [id])
   nationId String
+  Image    Image[]
+}
+
+model Image {
+  id          String    @id @default(uuid())
+  url         String
+  character   Character @relation(fields: [characterId], references: [id])
+  characterId String
 }
 
 model Factions {
