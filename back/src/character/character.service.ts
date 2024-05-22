@@ -2,11 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CharacterDto } from './dto/character.dto';
 import { Character } from '@prisma/client';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class CharacterService {
 
-  constructor(private prisma: PrismaService) { }
+  constructor(
+    private prisma: PrismaService,
+    private readonly cloudinaryService: CloudinaryService
+  ) { }
 
   async getAllCharacter() {
     
@@ -54,7 +58,7 @@ export class CharacterService {
     })
   }
 
-  async createCharacter(character: CharacterDto): Promise<Character> {
+  async createCharacter(character: CharacterDto, file: Express.Multer.File): Promise<Character> {
     
     const nation = await this.prisma.nation.findUnique({
       where: {id: character.nationId}
@@ -62,32 +66,39 @@ export class CharacterService {
 
     if (!nation) throw new Error(`Nation with id ${character.nationId} not found`)
 
-    const factions = await Promise.all(character.factions.map(async (faction) => {
-      const existingFaction = await this.prisma.factions.findUnique({
-            where: {
-              name: faction.name,
-              nationId: nation.id
-            }
-        });
+      const factions = await Promise.all(character.factions.map(async (faction) => {
+        const existingFaction = await this.prisma.factions.findUnique({
+              where: {
+                name: faction.name,
+                nationId: nation.id
+              }
+          });
+  
+          if (existingFaction) {
+              return {
+                  where: { id: existingFaction.id },
+                  create: { name: faction.name, nationId: nation.id },
+              };
+          } else {
+              return {
+                  where: { name: faction.name, nationId: nation.id },
+                  create: { name: faction.name, nationId: nation.id },
+              };
+          }
+      }));
 
-        if (existingFaction) {
-            return {
-                where: { id: existingFaction.id },
-                create: { name: faction.name, nationId: nation.id },
-            };
-        } else {
-            return {
-                where: { name: faction.name, nationId: nation.id },
-                create: { name: faction.name, nationId: nation.id },
-            };
-        }
-    }));
+    const cloudinaryResult = await this.cloudinaryService.uploadFile(file);
 
     return await this.prisma.character.create({
       data: {
         ...character,
         factions: {
           connectOrCreate: factions
+        },
+        Image: {
+          create: {
+            url: cloudinaryResult.secure_url
+          }
         }
       }
     });

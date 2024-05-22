@@ -26,4 +26,6 @@ export class CharacterDto {
   @IsString()
   @IsNotEmpty()
   nationId: string;
+
+  imageUrl: string;
 }
