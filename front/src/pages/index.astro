@@ -1,5 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Create from "../components/Create";
 ---
 
-<h1>Home</h1>
+<Layout title="Home">
+  <h1>Home</h1>
+  <Create client:load />
+</Layout>

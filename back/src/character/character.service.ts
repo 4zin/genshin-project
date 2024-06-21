@@ -86,7 +86,7 @@ export class CharacterService {
               };
           }
       }));
-
+      
     const cloudinaryResult = await this.cloudinaryService.uploadFile(file);
 
     return await this.prisma.character.create({

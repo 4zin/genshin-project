@@ -10,6 +10,7 @@ export class CloudinaryService {
         return new Promise<CloudinaryResponse>((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(
             {
+                folder: 'genshin',
                 transformation: {
                     width: 1000,
                     crop: 'scale',
