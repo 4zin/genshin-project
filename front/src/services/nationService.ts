@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/elements";
+const API_URL = "http://localhost:3000/nation";
 
-export const getElements = async () => {
+export const getNations = async () => {
     try {
         const response = await axios.get(API_URL);
-        return response.data;
+        return response.data
     } catch (error: any) {
         throw new error
     }

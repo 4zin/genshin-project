@@ -31,6 +31,11 @@ export class CharacterService {
           select: {
             name: true
           }
+        },
+        Image: {
+          select: {
+            url: true
+          }
         }
       }
     })

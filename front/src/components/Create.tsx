@@ -1,4 +1,5 @@
 import { useCharacter } from "../hooks/useCharacter";
+import Select from "react-select";
 
 export default function Create() {
   const {
@@ -15,8 +16,10 @@ export default function Create() {
     setNationId,
     setImage,
     handleFactionChange,
-    addFaction,
     submitHandler,
+    elementOptions,
+    nationOptions,
+    weaponOptions,
   } = useCharacter();
 
   return (
@@ -42,13 +45,13 @@ export default function Create() {
           className="bg-white px-2 text-black rounded-sm"
         />
       </div>
-      <div className="flex gap-2 mb-2">
-        <input
-          type="text"
-          value={weapon}
-          onChange={(event) => setWeapon(event.target.value)}
-          placeholder="Weapon"
-          className="bg-white px-2 text-black rounded-sm"
+      <div className="flex gap-2 mb-2 w-[12rem]">
+        <Select
+          value={weaponOptions.find((option) => option.value === weapon)}
+          onChange={(selectedOption) => setWeapon(selectedOption?.value || "")}
+          options={weaponOptions}
+          placeholder="Select Weapon"
+          className="text-black"
         />
       </div>
       {factions.map((faction, index) => (
@@ -73,25 +76,26 @@ export default function Create() {
           />
         </div>
       ))}
-      {/* <button type="button" onClick={addFaction}>
-        Add Faction
-      </button> */}
-      <div className="flex gap-2 mb-2">
-        <input
-          type="text"
-          value={visionId}
-          onChange={(event) => setVisionId(event.target.value)}
-          placeholder="Vision"
-          className="bg-white px-2 text-black rounded-sm"
+      <div className="flex gap-2 mb-2 w-[12rem]">
+        <Select
+          value={elementOptions.find((option) => option.value === visionId)}
+          onChange={(selectedOption) =>
+            setVisionId(selectedOption?.value || "")
+          }
+          options={elementOptions}
+          placeholder="Select Vision"
+          className="text-black"
         />
       </div>
-      <div className="flex gap-2 mb-2">
-        <input
-          type="text"
-          value={nationId}
-          onChange={(event) => setNationId(event.target.value)}
-          placeholder="Nation ID"
-          className="bg-white px-2 text-black rounded-sm"
+      <div className="flex gap-2 mb-2 w-[12rem]">
+        <Select
+          value={nationOptions.find((option) => option.value === nationId)}
+          onChange={(selectedOption) =>
+            setNationId(selectedOption?.value || "")
+          }
+          options={nationOptions}
+          placeholder="Select Nation"
+          className="text-black"
         />
       </div>
       <div className="flex gap-2 mb-2">
