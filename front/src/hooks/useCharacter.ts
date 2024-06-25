@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createCharacter } from "../services/characterService";
 import { getElements } from "../services/elementService";
 import { getNations } from "../services/nationService";
+import { getFactions } from "../services/factionsService";
 
 interface Elements {
     id: string;
@@ -14,11 +15,17 @@ interface Nations {
     element: Elements;
 }
 
+interface Factions {
+  name: string;
+  nationId: string;
+}
+
 export const useCharacter = () => {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [weapon, setWeapon] = useState("");
-  const [factions, setFactions] = useState([{ name: "", nationId: "" }]);
+  const [factions, setFactions] = useState<Factions[]>([]);
+  const [factionOptions, setFactionOptions] = useState<{value: string, label: string}[]>([])
   const [visionId, setVisionId] = useState("");
   const [elements, setElements] = useState<Elements[]>([]);
   const [nationId, setNationId] = useState("");
@@ -51,7 +58,25 @@ export const useCharacter = () => {
 
     fetchNations()
   },[])
- 
+
+  useEffect(() => {
+    const fetchFactions = async () => {
+      try {
+        const response = await getFactions()
+        setFactionOptions(response.map((faction: Factions) => ({ value: faction.name, label: faction.name})))
+      } catch (error: any) {
+        throw new error
+      }
+    }
+
+    fetchFactions()
+  },[])
+
+  useEffect(() => {
+    setFactions((prevFactions) => 
+      prevFactions.map((faction) => ({ ...faction, nationId}))
+    )
+  }, [nationId])  
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -71,19 +96,17 @@ export const useCharacter = () => {
         nationId,
         image
       );
+
+      setName("");
+      setTitle("");
+      setWeapon("");
+      setFactions([]);
+      setVisionId("");
+      setNationId("");
+      setImage(null);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleFactionChange = (
-    index: number,
-    field: "name" | "nationId",
-    value: string
-  ) => {
-    const newFactions = [...factions];
-    newFactions[index][field] = value;
-    setFactions(newFactions);
   };
 
   const elementOptions = elements.map(element => ({value: element.id, label: element.name}))
@@ -105,13 +128,14 @@ export const useCharacter = () => {
     weapon,
     setWeapon,
     factions,
+    factionOptions,
+    setFactions,
     visionId,
     setVisionId,
     nationId,
     setNationId,
     setImage,
     submitHandler,
-    handleFactionChange,
     elementOptions,
     nationOptions,
     weaponOptions
