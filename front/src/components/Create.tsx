@@ -64,7 +64,7 @@ export default function Create() {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="flex flex-col justify-center items-center gap-2"
+      className="flex flex-col items-center justify-center gap-2"
     >
       <div>
         <input
@@ -72,7 +72,7 @@ export default function Create() {
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="Name"
-          className="bg-white px-[8px] py-[4px] border border-black text-black rounded-md w-[15rem]"
+          className="w-[15rem] rounded-md border border-black bg-white px-[8px] py-[4px] text-black"
         />
       </div>
       <div>
@@ -81,7 +81,7 @@ export default function Create() {
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           placeholder="Title"
-          className="bg-white px-[8px] py-[4px] border border-black text-black rounded-md w-[15rem]"
+          className="w-[15rem] rounded-md border border-black bg-white px-[8px] py-[4px] text-black"
         />
       </div>
       <div>
@@ -188,12 +188,12 @@ export default function Create() {
               setImage(file);
             }
           }}
-          className="bg-white text-black rounded-sm w-[15rem]"
+          className="w-[15rem] rounded-sm bg-white text-black"
         />
       </div>
       <button
         type="submit"
-        className="bg-[#393b40] text-xl text-[#f4c780] px-8 py-2 rounded-md mt-2"
+        className="mt-2 rounded-md bg-[#393b40] px-8 py-2 text-xl text-[#f4c780]"
       >
         Create
       </button>
