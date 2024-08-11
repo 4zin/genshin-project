@@ -31,4 +31,8 @@ export class NationService {
     return await this.prisma.nation.create({ data: nation })
   }
 
+  async deleteNation(id: string) {
+    return await this.prisma.nation.delete({ where: { id } })
+  }
+
 }

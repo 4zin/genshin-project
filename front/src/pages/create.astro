@@ -4,6 +4,16 @@ import CreateComponent from "../components/Create";
 ---
 
 <Layout title="Create">
-  <h1>Create</h1>
+  <h1 class="text-center">Create</h1>
   <CreateComponent client:load />
 </Layout>
+
+<style>
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

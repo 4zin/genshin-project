@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 import { NationService } from './nation.service';
 import { NationDto } from './dto/nation.dto';
 
@@ -24,5 +24,10 @@ export class NationController {
   @Post()
   createNation(@Body() nation: NationDto) {
     return this.nationService.createNation(nation)
+  }
+
+  @Delete(':id')
+  deleteNation(@Param('id') id: string) {
+    return this.nationService.deleteNation(id)
   }
 }

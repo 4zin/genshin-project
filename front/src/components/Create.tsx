@@ -64,27 +64,27 @@ export default function Create() {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center items-center gap-2"
     >
-      <div className="flex gap-2 mb-2">
+      <div>
         <input
           type="text"
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="Name"
-          className="bg-white px-[8px] py-[4px] border border-black text-black rounded-md w-[12rem]"
+          className="bg-white px-[8px] py-[4px] border border-black text-black rounded-md w-[15rem]"
         />
       </div>
-      <div className="flex gap-2 mb-2">
+      <div>
         <input
           type="text"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           placeholder="Title"
-          className="bg-white px-[8px] py-[4px] border border-black text-black rounded-md w-[12rem]"
+          className="bg-white px-[8px] py-[4px] border border-black text-black rounded-md w-[15rem]"
         />
       </div>
-      <div className="flex gap-2 mb-2">
+      <div>
         <Select
           value={weaponOptions.find((option) => option.value === weapon)}
           ref={weaponSelectRef}
@@ -94,7 +94,7 @@ export default function Create() {
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              width: "12rem",
+              width: "15rem",
               borderColor: "black",
               ":hover": {
                 borderColor: "black",
@@ -105,7 +105,7 @@ export default function Create() {
         />
       </div>
 
-      <div className="flex gap-2 mb-2">
+      <div>
         <Select
           value={elementOptions.find((option) => option.value === visionId)}
           ref={elementSelectRef}
@@ -117,7 +117,7 @@ export default function Create() {
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              width: "12rem",
+              width: "15rem",
               borderColor: "black",
               ":hover": {
                 borderColor: "black",
@@ -127,7 +127,7 @@ export default function Create() {
           }}
         />
       </div>
-      <div className="flex gap-2 mb-2">
+      <div>
         <Select
           value={nationOptions.find((option) => option.value === nationId)}
           ref={nationSelectRef}
@@ -139,7 +139,7 @@ export default function Create() {
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              width: "12rem",
+              width: "15rem",
               borderColor: "black",
               ":hover": {
                 borderColor: "black",
@@ -149,7 +149,7 @@ export default function Create() {
           }}
         />
       </div>
-      <div className="flex gap-2 mb-2">
+      <div>
         <CreatableSelect
           isMulti
           value={factions.map((faction) => ({
@@ -168,7 +168,7 @@ export default function Create() {
           styles={{
             control: (baseStyles) => ({
               ...baseStyles,
-              width: "18rem",
+              width: "15rem",
               borderColor: "black",
               ":hover": {
                 borderColor: "black",
@@ -178,7 +178,7 @@ export default function Create() {
           }}
         />
       </div>
-      <div className="flex gap-2 mb-2">
+      <div>
         <input
           type="file"
           ref={fileInputRef}
@@ -188,7 +188,7 @@ export default function Create() {
               setImage(file);
             }
           }}
-          className="bg-white text-black rounded-sm"
+          className="bg-white text-black rounded-sm w-[15rem]"
         />
       </div>
       <button
