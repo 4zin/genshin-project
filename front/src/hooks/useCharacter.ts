@@ -5,14 +5,14 @@ import { getNations } from "../services/nationService";
 import { getFactions } from "../services/factionsService";
 
 interface Elements {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
 
 interface Nations {
-    id: string;
-    name: string;
-    element: Elements;
+  id: string;
+  name: string;
+  element: Elements;
 }
 
 interface Factions {
@@ -25,58 +25,64 @@ export const useCharacter = () => {
   const [title, setTitle] = useState("");
   const [weapon, setWeapon] = useState("");
   const [factions, setFactions] = useState<Factions[]>([]);
-  const [factionOptions, setFactionOptions] = useState<{value: string, label: string}[]>([])
+  const [factionOptions, setFactionOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
   const [visionId, setVisionId] = useState("");
   const [elements, setElements] = useState<Elements[]>([]);
   const [nationId, setNationId] = useState("");
-  const [nations, setNations] = useState<Nations[]>([])
+  const [nations, setNations] = useState<Nations[]>([]);
   const [image, setImage] = useState<File | null>(null);
 
   useEffect(() => {
     const fetchElements = async () => {
-        try {
-            const response = await getElements()
-            setElements(response)
-        } catch (error: any) {
-            throw new error
-        }
-    }
-    
-    fetchElements()
-  },[])
+      try {
+        const response = await getElements();
+        setElements(response);
+      } catch (error: any) {
+        throw new error();
+      }
+    };
+
+    fetchElements();
+  }, []);
 
   useEffect(() => {
     const fetchNations = async () => {
       try {
-        const response = await getNations()
-        setNations(response)
-        
+        const response = await getNations();
+        setNations(response);
       } catch (error: any) {
-        throw new error
+        throw new error();
       }
-    }
+    };
 
-    fetchNations()
-  },[])
+    fetchNations();
+  }, []);
 
   useEffect(() => {
     const fetchFactions = async () => {
       try {
-        const response = await getFactions()
-        setFactionOptions(response.map((faction: Factions) => ({ value: faction.name, label: faction.name})))
+        const response = await getFactions();
+        setFactionOptions(
+          response.map((faction: Factions) => ({
+            value: faction.name,
+            label: faction.name,
+          })),
+        );
       } catch (error: any) {
-        throw new error
+        throw new error();
       }
-    }
+    };
 
-    fetchFactions()
-  },[])
+    fetchFactions();
+  }, []);
 
   useEffect(() => {
-    setFactions((prevFactions) => 
-      prevFactions.map((faction) => ({ ...faction, nationId}))
-    )
-  }, [nationId])  
+    setFactions((prevFactions) =>
+      prevFactions.map((faction) => ({ ...faction, nationId })),
+    );
+  }, [nationId]);
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -94,7 +100,7 @@ export const useCharacter = () => {
         factions,
         visionId,
         nationId,
-        image
+        image,
       );
 
       setName("");
@@ -109,8 +115,14 @@ export const useCharacter = () => {
     }
   };
 
-  const elementOptions = elements.map(element => ({value: element.id, label: element.name}))
-  const nationOptions = nations.map(nation => ({value: nation.id, label: nation.name}))
+  const elementOptions = elements.map((element) => ({
+    value: element.id,
+    label: element.name,
+  }));
+  const nationOptions = nations.map((nation) => ({
+    value: nation.id,
+    label: nation.name,
+  }));
 
   const weaponOptions = [
     { value: "Sword", label: "Sword" },
@@ -118,7 +130,7 @@ export const useCharacter = () => {
     { value: "Catalyst", label: "Catalyst" },
     { value: "Claymore", label: "Claymore" },
     { value: "Polearm", label: "Polearm" },
-  ]
+  ];
 
   return {
     name,
@@ -138,6 +150,6 @@ export const useCharacter = () => {
     submitHandler,
     elementOptions,
     nationOptions,
-    weaponOptions
-  }
-}
+    weaponOptions,
+  };
+};
