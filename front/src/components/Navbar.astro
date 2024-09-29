@@ -1,17 +1,16 @@
 ---
+import { Image } from "astro:assets";
+import genshinLogo from "../../public/genshin-logo.webp";
 import LinkButtons from "./LinkButtons.astro";
 ---
 
-<nav class="flex justify-center gap-10 items-center p-2">
-  <LinkButtons text="Characters" link="#" />
-  <LinkButtons text="Weapons" link="#" />
+<nav
+  class="flex items-center justify-around bg-[linear-gradient(0deg,#2e8792_20%,#47b7c4_80%)] p-2"
+>
+  <LinkButtons text="Characters" link="/characters" />
+  <LinkButtons text="Weapons" link="/weapons" />
   <a href="/">
-    <img
-      width="300px"
-      loading="lazy"
-      src="/genshin-logo.webp"
-      alt="Genshin Impact Logo"
-    />
+    <Image src={genshinLogo} alt="Genshin Impact Logo" />
   </a>
   <LinkButtons text="Nations" link="#" />
   <LinkButtons text="Afiliations" link="#" />
