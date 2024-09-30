@@ -1,7 +1,30 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getCharacters } from "../services/characterService";
+
+type Character = {
+  name: string;
+  image: { url: string }[];
+};
+
+const characters = await getCharacters();
 ---
+
+<script>
+  import { getCharacters } from "../services/characterService";
+
+  const characters = await getCharacters();
+
+  console.log(characters[0].Image);
+</script>
 
 <Layout title="Characters">
   <h1 class="text-center">Characters</h1>
+  <ul>
+    {
+      characters.map((character: Character) => (
+        <img src={character.image[0].url} alt={character.name} />
+      ))
+    }
+  </ul>
 </Layout>

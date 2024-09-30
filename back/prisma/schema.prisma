@@ -17,7 +17,7 @@ model Character {
   visionId String
   nation   Nation     @relation(fields: [nationId], references: [id])
   nationId String
-  Image    Image[]
+  image    Image[]
 }
 
 model Image {
