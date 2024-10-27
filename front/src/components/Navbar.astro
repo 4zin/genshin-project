@@ -4,14 +4,17 @@ import genshinLogo from "../../public/genshin-logo.webp";
 import LinkButtons from "./LinkButtons.astro";
 ---
 
-<nav
-  class="flex items-center justify-around bg-[linear-gradient(0deg,#2e8792_20%,#47b7c4_80%)] p-2"
->
-  <LinkButtons text="Characters" link="/characters" />
-  <LinkButtons text="Weapons" link="/weapons" />
-  <a href="/">
-    <Image src={genshinLogo} alt="Genshin Impact Logo" />
-  </a>
-  <LinkButtons text="Nations" link="#" />
-  <LinkButtons text="Afiliations" link="#" />
-</nav>
+<header class="shadow-[0_5px_7px_5px_rgba(0,0,0,0.25)]">
+  <nav class="flex items-center bg-[#111111bd] p-8">
+    <a href="/">
+      <Image src={genshinLogo} alt="Genshin Impact Logo" />
+    </a>
+    <div class="flex w-[45%] gap-8">
+      <LinkButtons text="Home" link="/" />
+      <LinkButtons text="Characters" link="/characters" />
+      <LinkButtons text="Weapons" link="/weapons" />
+      <LinkButtons text="Nations" link="#" />
+      <LinkButtons text="Afiliations" link="#" />
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { path: "mondstadt" },
+    },
+    {
+      params: { path: "liyue" },
+    },
+    {
+      params: { path: "inazuma" },
+    },
+    {
+      params: { path: "sumeru" },
+    },
+    {
+      params: { path: "fontaine" },
+    },
+    {
+      params: { path: "natlan" },
+    },
+  ];
+}
+---
+
+<Layout title="Nations" />

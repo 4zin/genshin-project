@@ -1,0 +1,40 @@
+---
+import "@fontsource/allerta-stencil";
+
+const { background, backgroundChar, name, path } = Astro.props;
+---
+
+<li
+  class="group relative h-[260px] overflow-hidden before:absolute before:z-[2] before:block before:h-full before:w-full before:bg-[#0006] before:content-[''] before:hover:bg-[#0003]"
+>
+  <div
+    class="absolute h-full w-full bg-center bg-no-repeat transition-all duration-200 ease-in group-hover:scale-[1.05] group-hover:transform"
+    style={`background-image: url(${background});`}
+  >
+  </div>
+  <a
+    href={path}
+    class="relative z-[3] inline-block h-[260px] w-full bg-[url('/center-star.webp')] bg-center bg-no-repeat"
+  >
+    <p
+      class="relative z-[3] inline-block h-[260px] w-full bg-[url('/center-star.webp')] bg-center bg-no-repeat text-center text-[43px] leading-[260px]"
+    >
+      {name}
+    </p>
+  </a>
+  <div
+    class="city__list-char absolute left-0 top-0 z-[2] h-full w-full border-[6px] border-white bg-no-repeat opacity-0 transition-all duration-200 ease-in group-hover:opacity-100"
+    style={`background-image: url(${backgroundChar});`}
+  >
+  </div>
+</li>
+
+<style>
+  a {
+    font-family: "Allerta Stencil", sans-serif;
+  }
+
+  .city__list-char {
+    background-position: calc(50% + 360px) 50%;
+  }
+</style>

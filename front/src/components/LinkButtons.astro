@@ -1,5 +1,13 @@
 ---
+import "@fontsource/poppins";
 const { text, link } = Astro.props;
 ---
 
-<a href={link}>{text}</a>
+<a href={link} class="font">{text}</a>
+
+<style>
+  a {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+  }
+</style>

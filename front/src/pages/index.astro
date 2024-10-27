@@ -1,7 +1,72 @@
 ---
+import HomeNations from "../components/HomeNations.astro";
 import Layout from "../layouts/Layout.astro";
+
+const nationSource: nationSource[] = [
+  {
+    name: "Mondstadt",
+    background:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730048976/genshin/ry42pyshhuedffafm5m6.webp",
+    backgroundChar:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730048976/genshin/hfxywc5baa5bahqtoq9r.webp",
+    path: "/nations/mondstadt",
+  },
+  {
+    name: "Liyue",
+    background:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/qoibknurvp6oi0k5mwyz.webp",
+    backgroundChar:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/lctvltapip84pjf5a6bl.webp",
+    path: "/nations/liyue",
+  },
+  {
+    name: "Inazuma",
+    background:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/a3qqnhqvwhrmiok5ojpu.webp",
+    backgroundChar:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/sebq1qpcz6wkmwfa81i9.webp",
+    path: "/nations/inazuma",
+  },
+  {
+    name: "Sumeru",
+    background:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/zkm8dnjvpusdfjxg8w5e.webp",
+    backgroundChar:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/hprjxvldzxheehuikctg.webp",
+    path: "/nations/sumeru",
+  },
+  {
+    name: "Fontaine",
+    background:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/vinxvmssc0sm0ze0lqsp.webp",
+    backgroundChar:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/eodbcbbvpzmrur27yw73.webp",
+    path: "/nations/fontaine",
+  },
+  {
+    name: "Natlan",
+    background:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/gtwa3p3okeg4huufpfic.webp",
+    backgroundChar:
+      "https://res.cloudinary.com/dbcqkm8yz/image/upload/v1730050282/genshin/jbtmytefh0bxldq4h4s8.webp",
+    path: "/nations/natlan",
+  },
+];
 ---
 
 <Layout title="Home">
-  <a href="/create">Create</a>
+  <!-- <a href="/create">Create</a> -->
+  <ul>
+    {
+      nationSource.map((nation) => (
+        <HomeNations
+          key={nation.name}
+          name={nation.name}
+          background={nation.background}
+          backgroundChar={nation.backgroundChar}
+          path={nation.path}
+        />
+      ))
+    }
+  </ul>
 </Layout>
